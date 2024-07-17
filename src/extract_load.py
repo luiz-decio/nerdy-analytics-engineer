@@ -2,8 +2,7 @@ import pandas as pd
 import os
 from sqlalchemy import create_engine
 from dotenv import load_dotenv
-from src.data_generator import generate_leads, generate_clients, generate_orders
-
+from src.data_generator import *
 
 load_dotenv()
 
