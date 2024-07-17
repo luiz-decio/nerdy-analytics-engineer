@@ -22,11 +22,14 @@ engine = create_engine(POSTGRES_DB_URL)
 # Generate leads and save to Postgres
 df_leads = generate_leads()
 df_leads.to_sql('leads', engine, if_exists='replace', index=False)
+print(len(df_leads))
 
 # Generate clients and save to Postgres
 df_clients = generate_clients(df_leads)
 df_clients.to_sql('clients', engine, if_exists='replace', index=False)
+print(len(df_clients))
 
 # Generate orders and save to Postgres
 df_orders = generate_orders(df_clients)
 df_orders.to_sql('orders', engine, if_exists='replace', index=False)
+print(len(df_orders))
