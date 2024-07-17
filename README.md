@@ -42,7 +42,7 @@ The [query](/docs/query.sql) can be found in the docs folder! The results will b
 
 ![Alt](/docs/pgadmin.png)
 
-To improve query performance you can create indexes in the columns used in aggregation and sorting operations, like so:
+To improve query performance you can create indexes in the columns used in joins, aggregations, and sorting operations, like so:
 
 ```sql
 CREATE INDEX idx_orders_order_creation_datetime
