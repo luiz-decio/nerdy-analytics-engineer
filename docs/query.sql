@@ -75,4 +75,4 @@ FULL OUTER JOIN
 FULL OUTER JOIN
     orders AS O ON COALESCE(VL.date, NC.date) = O.date AND COALESCE(VL.lead_source, NC.lead_source) = O.lead_source
 ORDER BY
-    "Date" DESC, "Lead Source";  -- Order by date descending and then by lead source
+    "Date" DESC, "Lead Source";
