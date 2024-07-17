@@ -14,10 +14,10 @@ if __name__ == '__main__':
         # Create an empty data variable and populate with synthetic data
         data = []
 
-        for _ in range(random.randint(20_000, 30_000)):
+        for _ in range(random.randint(200_000, 500_000)):
             data.append({
 
-                'lead_id': random.randint(100_000, 300_000),
+                'lead_id': random.randint(100_000, 800_000),
                 'lead_name': fake.name(),
                 'lead_phone': fake.phone_number(),
                 'lead_source': random.choice(['Facebook', 'Paid Google', 'Organic Search', 'Affiliates', 'Paid Bing']),
@@ -28,19 +28,22 @@ if __name__ == '__main__':
 
         df = pd.DataFrame(data).drop_duplicates(subset='lead_id')
 
+        # Create insert date
+        df['_insert_date'] = datetime.datetime.now()
+
         return df
 
     def generate_clients(df: pd.DataFrame) -> pd.DataFrame:
 
         # Generate a sample of the leads dataframe
         df_valid_leads = df[df['valid_lead'] == 1] 
-        df_clients = df_valid_leads.sample(random.randint(8_000, 10_000))
+        df_clients = df_valid_leads.sample(random.randint(20_000, 30_000))
 
         # Select columns
         df_clients = df_clients[['lead_id', 'lead_creation_datetime']]
 
         # Generate client_creation_datetime and client id for each row
-        df_clients['client_id'] = df_clients.apply(lambda _: random.randint(50_000, 80_000), axis=1)
+        df_clients['client_id'] = df_clients.apply(lambda _: random.randint(20_000, 90_000), axis=1)
         df_clients['client_creation_datetime'] = df_clients['lead_creation_datetime'] \
                                                 .apply(lambda x: fake.date_time_between(start_date=x, end_date=datetime.datetime(2024, 6, 1)))
 
@@ -53,13 +56,13 @@ if __name__ == '__main__':
     def generate_orders(df: pd.DataFrame) -> pd.DataFrame:
 
         # Generate a sample of the clients dataframe 
-        df_orders = df.sample(random.randint(3_000, 6_000))
+        df_orders = df.sample(random.randint(8_000, 14_000))
 
         # Randomly multiply each row by 1, 2, 3 or 4 to create orders for some clients
         df_orders = df_orders.loc[df_orders.index.repeat(random.choices([1, 2, 3, 4], k=len(df_orders)))]
 
         # Generate order_creation_datetime and order id for each row
-        df_orders['order_id'] = df_orders.apply(lambda _: random.randint(10_000, 50_000), axis=1)
+        df_orders['order_id'] = df_orders.apply(lambda _: random.randint(10_000, 100_000), axis=1)
         df_orders['order_creation_datetime'] = df_orders['client_creation_datetime'] \
                                                 .apply(lambda x: fake.date_time_between(start_date=x, end_date=datetime.datetime(2024, 6, 1)))
 

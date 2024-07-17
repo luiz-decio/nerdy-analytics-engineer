@@ -4,6 +4,7 @@ from sqlalchemy import create_engine
 from dotenv import load_dotenv
 from src.data_generator import generate_leads, generate_clients, generate_orders
 
+
 load_dotenv()
 
 # Import environment variables for Postgres
